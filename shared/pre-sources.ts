@@ -379,6 +379,14 @@ export const originSources = {
     title: "热点资讯",
     home: "https://www.ifeng.com",
   },
+  "foxnews": {
+    name: "Fox News",
+    type: "hottest",
+    column: "world",
+    color: "blue",
+    home: "https://www.foxnews.com",
+    title: "热点新闻",
+  },
   "nytimes": {
     name: "纽约时报",
     title: "热门文章",

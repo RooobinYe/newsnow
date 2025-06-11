@@ -6,7 +6,19 @@ interface OpenAITranslateRes {
   }[]
 }
 
+const translationCache = new Map<string, string>()
+
+function getCacheKey(text: string, from: string, to: string): string {
+  return `${from}-${to}-${text}`
+}
+
 export async function translateText(text: string, from = 'English', to = 'Chinese'): Promise<string> {
+  const cacheKey = getCacheKey(text, from, to)
+  
+  if (translationCache.has(cacheKey)) {
+    return translationCache.get(cacheKey)!
+  }
+  
   const apiKey = process.env.OPENAI_API_KEY
   
   if (!apiKey) {
@@ -21,10 +33,10 @@ export async function translateText(text: string, from = 'English', to = 'Chines
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
+        model: 'o4-mini',
         messages: [
           {
-            role: 'system',
+            role: 'developer',
             content: `You are a professional translator. Translate the following ${from} text to ${to}. Only return the translated text, no explanations.`
           },
           {
@@ -32,15 +44,17 @@ export async function translateText(text: string, from = 'English', to = 'Chines
             content: text
           }
         ],
-        max_tokens: 1000,
-        temperature: 0.3
+        max_completion_tokens: 1000,
+        reasoning_effort: 'low'
       })
     })
 
     const data: OpenAITranslateRes = await response.json()
     
     if (data.choices && data.choices.length > 0) {
-      return data.choices[0].message.content.trim()
+      const translatedText = data.choices[0].message.content.trim()
+      translationCache.set(cacheKey, translatedText)
+      return translatedText
     }
     
     return text

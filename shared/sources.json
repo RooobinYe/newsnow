@@ -438,5 +438,14 @@
     "color": "green",
     "interval": 1800000,
     "title": "最热"
+  },
+  "foxnews": {
+    "title": "热点新闻",
+    "name": "Fox News",
+    "type": "hottest",
+    "column": "world",
+    "home": "https://www.foxnews.com",
+    "color": "blue",
+    "interval": 600000
   }
 }

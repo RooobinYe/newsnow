@@ -16,26 +16,7 @@ interface NYTMostPopularRes {
 export default defineSource(async () => {
   const apiKey = process.env.NYT_API_KEY
   if (!apiKey) {
-    // 降级到RSS源
-    const data = await rss2json("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml")
-    if (!data?.items.length) throw new Error("Cannot fetch NYT data")
-    const items = data.items.slice(0, 20)
-    const translatedItems = await Promise.all(
-      items.map(async (item, index) => {
-        const titleZh = await translateText(item.title)
-        return {
-          title: item.title,
-          titleZh,
-          url: item.link,
-          id: item.link,
-          pubDate: item.created,
-          extra: {
-            info: `#${index + 1}`,
-          },
-        }
-      })
-    )
-    return translatedItems
+    throw new Error("NYT_API_KEY is required")
   }
   
   const url = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${apiKey}`
