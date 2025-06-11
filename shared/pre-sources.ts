@@ -379,6 +379,15 @@ export const originSources = {
     title: "热点资讯",
     home: "https://www.ifeng.com",
   },
+  "nytimes": {
+    name: "纽约时报",
+    title: "热门文章",
+    type: "hottest",
+    column: "world",
+    color: "gray",
+    home: "https://www.nytimes.com",
+    interval: Time.Common,
+  },
   "chongbuluo": {
     name: "虫部落",
     column: "china",

@@ -248,6 +248,11 @@ function NewsListHot({ items }: { items: NewsItem[] }) {
             <span className="mr-2 text-base">
               {item.title}
             </span>
+            {item.titleZh && (
+              <span className="mr-2 text-sm text-neutral-600 dark:text-neutral-300 block mt-1">
+                {item.titleZh}
+              </span>
+            )}
             <span className="text-xs text-neutral-400/80 truncate align-middle">
               <ExtraInfo item={item} />
             </span>
@@ -279,11 +284,18 @@ function NewsListTimeLine({ items }: { items: NewsItem[] }) {
               "cursor-pointer [&_*]:cursor-pointer transition-all",
             )}
             href={width < 768 ? item.mobileUrl || item.url : item.url}
-            title={item.extra?.hover}
+            title={item.extra?.hover || item.extra?.hoverZh}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {item.title}
+            <div className="flex flex-col">
+              <span>{item.title}</span>
+              {item.titleZh && (
+                <span className="text-sm text-neutral-600 dark:text-neutral-300 mt-1">
+                  {item.titleZh}
+                </span>
+              )}
+            </div>
           </a>
         </li>
       ))}

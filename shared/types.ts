@@ -87,11 +87,13 @@ export interface Column {
 export interface NewsItem {
   id: string | number // unique
   title: string
+  titleZh?: string // 中文翻译
   url: string
   mobileUrl?: string
   pubDate?: number | string
   extra?: {
     hover?: string
+    hoverZh?: string // 中文摘要翻译
     date?: number | string
     info?: false | string
     diff?: number
