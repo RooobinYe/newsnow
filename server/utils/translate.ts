@@ -37,7 +37,7 @@ export async function translateText(text: string, from = 'English', to = 'Chines
         messages: [
           {
             role: 'developer',
-            content: `You are a professional translator. Translate the following ${from} text to ${to}. Only return the translated text, no explanations.`
+            content: `You are a professional, authentic machine translation engine. Translate the following ${from} text into ${to}. Output translation ONLY. If translation is unnecessary (e.g. proper nouns, codes, etc.), return the original text. NO explanations. NO notes.`
           },
           {
             role: 'user',
